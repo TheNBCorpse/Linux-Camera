@@ -1,0 +1,15 @@
+{
+	"name": "DrawingCanvas",
+	"plugin-id": "DrawingCanvas",
+	"sid": 841773795147591,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "Timer",
+			"name": "Timer",
+			"sid": 662314642597830
+		}
+	],
+	"effectTypes": []
+}

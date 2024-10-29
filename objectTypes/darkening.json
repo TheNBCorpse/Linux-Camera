@@ -1,0 +1,22 @@
+{
+	"name": "darkening",
+	"plugin-id": "TiledBg",
+	"sid": 322164280868746,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"image": {
+		"width": 250,
+		"height": 250,
+		"originX": 0.5,
+		"originY": 0.5,
+		"originalSource": "",
+		"exportFormat": "lossless",
+		"exportQuality": 0.8,
+		"fileType": "image/png",
+		"imageSpriteId": 4073359,
+		"useCollisionPoly": true,
+		"tag": ""
+	}
+}

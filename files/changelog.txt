@@ -1,0 +1,1 @@
+1.1.0 - added drawing in fullscreen, currently no toggle. also added a darkness slider and a contrast slider.

@@ -1,0 +1,1058 @@
+{
+	"name": "Event sheet 1",
+	"events": [
+		{
+			"eventType": "variable",
+			"name": "index",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 936695366048537
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-suspend",
+					"objectClass": "System",
+					"sid": 485021680305265
+				}
+			],
+			"actions": [
+				{
+					"id": "request-attention",
+					"objectClass": "NWjs",
+					"sid": 446755333509086,
+					"parameters": {
+						"mode": "request-attention"
+					}
+				}
+			],
+			"sid": 881659055447911
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-resume",
+					"objectClass": "System",
+					"sid": 995519344846149
+				}
+			],
+			"actions": [
+				{
+					"id": "request-attention",
+					"objectClass": "NWjs",
+					"sid": 995140293654636,
+					"parameters": {
+						"mode": "stop-requesting-attention"
+					}
+				}
+			],
+			"sid": 790665476217865
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "switching",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-start-of-layout",
+							"objectClass": "System",
+							"sid": 748619437110884
+						}
+					],
+					"actions": [
+						{
+							"id": "get-media-sources",
+							"objectClass": "UserMedia",
+							"sid": 896464791367045
+						}
+					],
+					"sid": 408987805116842
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-retrieved-media-sources",
+							"objectClass": "UserMedia",
+							"sid": 318032900587352
+						}
+					],
+					"actions": [
+						{
+							"id": "request-camera",
+							"objectClass": "UserMedia",
+							"sid": 683369018716289,
+							"parameters": {
+								"source": "index",
+								"preferred-direction": "any",
+								"preferred-width": "1920",
+								"preferred-height": "1080",
+								"include-mic": false,
+								"mic-source": "0"
+							}
+						}
+					],
+					"sid": 681236702545861
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-media-request-approved",
+							"objectClass": "UserMedia",
+							"sid": 549413939830152
+						}
+					],
+					"actions": [
+						{
+							"id": "set-title",
+							"objectClass": "NWjs",
+							"sid": 659934785553186,
+							"parameters": {
+								"title": "\"(\" & index+1 & \"/\" & UserMedia.CameraSourceCount & \") \" & UserMedia.CameraSourceLabelAt(0)"
+							}
+						}
+					],
+					"sid": 766758310364284
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-key-pressed",
+							"objectClass": "Keyboard",
+							"sid": 913070314064359,
+							"parameters": {
+								"key": 39
+							}
+						},
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 367378071233904,
+							"parameters": {
+								"first-value": "UserMedia.CameraSourceCount",
+								"comparison": 4,
+								"second-value": "1"
+							}
+						},
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 752732292338340,
+							"parameters": {
+								"variable": "index",
+								"comparison": 2,
+								"value": "UserMedia.CameraSourceCount - 1"
+							}
+						},
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 103997546623499,
+							"parameters": {
+								"first-value": "UserMedia.VideoHeight",
+								"comparison": 1,
+								"second-value": "0"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "add-to-eventvar",
+							"objectClass": "System",
+							"sid": 943226411018236,
+							"parameters": {
+								"variable": "index",
+								"value": "1"
+							}
+						},
+						{
+							"id": "request-camera",
+							"objectClass": "UserMedia",
+							"sid": 422511013529933,
+							"parameters": {
+								"source": "index",
+								"preferred-direction": "any",
+								"preferred-width": "1920",
+								"preferred-height": "1080",
+								"include-mic": false,
+								"mic-source": "0"
+							}
+						}
+					],
+					"sid": 711612727442306
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-key-pressed",
+							"objectClass": "Keyboard",
+							"sid": 588435945285698,
+							"parameters": {
+								"key": 37
+							}
+						},
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 409318935189946,
+							"parameters": {
+								"variable": "index",
+								"comparison": 4,
+								"value": "0"
+							}
+						},
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 422385600615938,
+							"parameters": {
+								"first-value": "UserMedia.VideoHeight",
+								"comparison": 1,
+								"second-value": "0"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "subtract-from-eventvar",
+							"objectClass": "System",
+							"sid": 763752617554340,
+							"parameters": {
+								"variable": "index",
+								"value": "1"
+							}
+						},
+						{
+							"id": "request-camera",
+							"objectClass": "UserMedia",
+							"sid": 985923249210600,
+							"parameters": {
+								"source": "index",
+								"preferred-direction": "any",
+								"preferred-width": "1920",
+								"preferred-height": "1080",
+								"include-mic": false,
+								"mic-source": "0"
+							}
+						}
+					],
+					"sid": 350152026769758
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 308971747240048,
+							"parameters": {
+								"first-value": "UserMedia.VideoHeight",
+								"comparison": 1,
+								"second-value": "0"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-visible",
+							"objectClass": "UserMedia",
+							"sid": 621504687137841,
+							"parameters": {
+								"visibility": "visible"
+							}
+						},
+						{
+							"id": "set-visible",
+							"objectClass": "nocamera",
+							"sid": 198264445999459,
+							"parameters": {
+								"visibility": "invisible"
+							}
+						}
+					],
+					"sid": 665651996987257
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 903249965504710,
+							"parameters": {
+								"first-value": "UserMedia.VideoHeight",
+								"comparison": 0,
+								"second-value": "0"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-visible",
+							"objectClass": "UserMedia",
+							"sid": 649485351282426,
+							"parameters": {
+								"visibility": "invisible"
+							}
+						},
+						{
+							"id": "set-visible",
+							"objectClass": "nocamera",
+							"sid": 515601686468462,
+							"parameters": {
+								"visibility": "visible"
+							}
+						}
+					],
+					"sid": 273480547895860
+				}
+			],
+			"sid": 944724341042307
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "take photo",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "cursor-is-over-object",
+							"objectClass": "Mouse",
+							"sid": 576626182996866,
+							"parameters": {
+								"object": "takepicture"
+							}
+						},
+						{
+							"id": "mouse-button-is-down",
+							"objectClass": "Mouse",
+							"sid": 268576067931050,
+							"parameters": {
+								"mouse-button": "left"
+							},
+							"isInverted": true
+						}
+					],
+					"actions": [
+						{
+							"id": "set-animation",
+							"objectClass": "takepicture",
+							"sid": 276528116466061,
+							"parameters": {
+								"animation": "\"hover\"",
+								"from": "beginning"
+							}
+						}
+					],
+					"sid": 501290278832644
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "cursor-is-over-object",
+							"objectClass": "Mouse",
+							"sid": 515566364895454,
+							"parameters": {
+								"object": "takepicture"
+							}
+						},
+						{
+							"id": "mouse-button-is-down",
+							"objectClass": "Mouse",
+							"sid": 766408743135548,
+							"parameters": {
+								"mouse-button": "left"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-animation",
+							"objectClass": "takepicture",
+							"sid": 871084085932245,
+							"parameters": {
+								"animation": "\"click\"",
+								"from": "beginning"
+							}
+						}
+					],
+					"sid": 892182397105350
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "cursor-is-over-object",
+							"objectClass": "Mouse",
+							"sid": 773479283844350,
+							"parameters": {
+								"object": "takepicture"
+							},
+							"isInverted": true
+						}
+					],
+					"actions": [
+						{
+							"id": "set-animation",
+							"objectClass": "takepicture",
+							"sid": 803399058247187,
+							"parameters": {
+								"animation": "\"idle\"",
+								"from": "beginning"
+							}
+						}
+					],
+					"sid": 605139226951217
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "key-is-down",
+							"objectClass": "Keyboard",
+							"sid": 891985914519306,
+							"parameters": {
+								"key": 32
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-animation",
+							"objectClass": "takepicture",
+							"sid": 782146128650063,
+							"parameters": {
+								"animation": "\"click\"",
+								"from": "beginning"
+							}
+						}
+					],
+					"sid": 288568846282440
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-object-clicked",
+							"objectClass": "Mouse",
+							"sid": 557798594434490,
+							"parameters": {
+								"mouse-button": "left",
+								"click-type": "clicked",
+								"object-clicked": "takepicture"
+							}
+						},
+						{
+							"id": "on-key-released",
+							"objectClass": "Keyboard",
+							"sid": 578272884359355,
+							"parameters": {
+								"key": 32
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "snapshot",
+							"objectClass": "UserMedia",
+							"sid": 242011549524192,
+							"parameters": {
+								"format": "jpeg",
+								"jpeg-quality": "100"
+							}
+						}
+					],
+					"sid": 184825453872417,
+					"isOrBlock": true
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-snapshot",
+							"objectClass": "UserMedia",
+							"sid": 747110081844292
+						}
+					],
+					"actions": [
+						{
+							"id": "invoke-download",
+							"objectClass": "Browser",
+							"sid": 358172081727450,
+							"parameters": {
+								"url": "UserMedia.SnapshotURL",
+								"filename": "round(random(12475928, 98237459)) & \"\""
+							}
+						}
+					],
+					"sid": 187637859718820
+				}
+			],
+			"sid": 211868991327468
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "fullscreen",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-key-pressed",
+							"objectClass": "Keyboard",
+							"sid": 373617730371345,
+							"parameters": {
+								"key": 122
+							}
+						},
+						{
+							"id": "on-key-pressed",
+							"objectClass": "Keyboard",
+							"sid": 141531238531077,
+							"disabled": true,
+							"parameters": {
+								"key": 9
+							}
+						}
+					],
+					"actions": [],
+					"sid": 378307423149790,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-fullscreen",
+									"objectClass": "Browser",
+									"sid": 261234957683310
+								}
+							],
+							"actions": [
+								{
+									"id": "cancel-fullscreen",
+									"objectClass": "Browser",
+									"sid": 934806360561435
+								}
+							],
+							"sid": 736119556022741
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-fullscreen",
+									"objectClass": "Browser",
+									"sid": 858113435195177,
+									"isInverted": true
+								}
+							],
+							"actions": [
+								{
+									"id": "request-fullscreen",
+									"objectClass": "Browser",
+									"sid": 213249465262862,
+									"parameters": {
+										"mode": "stretch-letterbox-scale",
+										"navigation-ui": "hide"
+									}
+								}
+							],
+							"sid": 901729713563323
+						}
+					],
+					"isOrBlock": true
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-fullscreen",
+							"objectClass": "Browser",
+							"sid": 315897610579102
+						}
+					],
+					"actions": [
+						{
+							"id": "set-position",
+							"objectClass": "takepicture",
+							"sid": 994537146915662,
+							"parameters": {
+								"x": "-300",
+								"y": "-300"
+							}
+						},
+						{
+							"id": "set-size",
+							"objectClass": "nocamera",
+							"sid": 873757386285726,
+							"parameters": {
+								"width": "1920",
+								"height": "1080"
+							}
+						},
+						{
+							"id": "set-size",
+							"objectClass": "UserMedia",
+							"sid": 754454260234854,
+							"parameters": {
+								"width": "1920",
+								"height": "1080"
+							}
+						},
+						{
+							"id": "set-size",
+							"objectClass": "darkening",
+							"sid": 297024986157817,
+							"parameters": {
+								"width": "1920",
+								"height": "1080"
+							}
+						},
+						{
+							"id": "set-visible",
+							"objectClass": "darkening_slider",
+							"sid": 423524897932720,
+							"parameters": {
+								"visibility": "invisible"
+							}
+						},
+						{
+							"id": "set-unfocused",
+							"objectClass": "darkening_slider",
+							"sid": 493807047625571
+						},
+						{
+							"id": "set-enabled",
+							"objectClass": "darkening_slider",
+							"sid": 467648070985170,
+							"parameters": {
+								"mode": "disabled"
+							}
+						},
+						{
+							"id": "set-visible",
+							"objectClass": "contrast_slider",
+							"sid": 522804356002589,
+							"parameters": {
+								"visibility": "invisible"
+							}
+						},
+						{
+							"id": "set-unfocused",
+							"objectClass": "contrast_slider",
+							"sid": 729727946971724
+						},
+						{
+							"id": "set-enabled",
+							"objectClass": "contrast_slider",
+							"sid": 584237507893614,
+							"parameters": {
+								"mode": "disabled"
+							}
+						},
+						{
+							"id": "set-visible",
+							"objectClass": "DrawingCanvas",
+							"sid": 136647646968923,
+							"parameters": {
+								"visibility": "visible"
+							}
+						}
+					],
+					"sid": 623547252156216
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-fullscreen",
+							"objectClass": "Browser",
+							"sid": 561865578936693,
+							"isInverted": true
+						}
+					],
+					"actions": [
+						{
+							"id": "set-position",
+							"objectClass": "takepicture",
+							"sid": 451862137419757,
+							"parameters": {
+								"x": "1728",
+								"y": "486"
+							}
+						},
+						{
+							"id": "set-size",
+							"objectClass": "nocamera",
+							"sid": 143781665511773,
+							"parameters": {
+								"width": "1536",
+								"height": "864"
+							}
+						},
+						{
+							"id": "set-size",
+							"objectClass": "UserMedia",
+							"sid": 640255309928779,
+							"parameters": {
+								"width": "1536",
+								"height": "864"
+							}
+						},
+						{
+							"id": "set-size",
+							"objectClass": "darkening",
+							"sid": 833302933445323,
+							"parameters": {
+								"width": "1536",
+								"height": "864"
+							}
+						},
+						{
+							"id": "set-visible",
+							"objectClass": "darkening_slider",
+							"sid": 416887066137438,
+							"parameters": {
+								"visibility": "visible"
+							}
+						},
+						{
+							"id": "set-enabled",
+							"objectClass": "darkening_slider",
+							"sid": 156913597034023,
+							"parameters": {
+								"mode": "enabled"
+							}
+						},
+						{
+							"id": "set-visible",
+							"objectClass": "contrast_slider",
+							"sid": 768632656189868,
+							"parameters": {
+								"visibility": "visible"
+							}
+						},
+						{
+							"id": "set-enabled",
+							"objectClass": "contrast_slider",
+							"sid": 449581301394230,
+							"parameters": {
+								"mode": "enabled"
+							}
+						},
+						{
+							"id": "set-visible",
+							"objectClass": "DrawingCanvas",
+							"sid": 937399713492745,
+							"parameters": {
+								"visibility": "invisible"
+							}
+						}
+					],
+					"sid": 744516245014976
+				}
+			],
+			"sid": 499501515584552
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "darkening",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-tick",
+							"objectClass": "System",
+							"sid": 613992252749066
+						}
+					],
+					"actions": [
+						{
+							"id": "set-tooltip",
+							"objectClass": "darkening_slider",
+							"sid": 913983074908987,
+							"parameters": {
+								"tooltip": "Self.Value & \"%\""
+							}
+						},
+						{
+							"id": "set-opacity",
+							"objectClass": "darkening",
+							"sid": 176753845345726,
+							"parameters": {
+								"opacity": "darkening_slider.Value"
+							}
+						}
+					],
+					"sid": 671396968566603
+				}
+			],
+			"sid": 531089166742039
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "contrast",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-tick",
+							"objectClass": "System",
+							"sid": 901598923254756
+						}
+					],
+					"actions": [
+						{
+							"id": "set-tooltip",
+							"objectClass": "contrast_slider",
+							"sid": 164721135439758,
+							"parameters": {
+								"tooltip": "Self.Value & \"%\""
+							}
+						},
+						{
+							"id": "set-effect-parameter",
+							"objectClass": "UserMedia",
+							"sid": 206129687911665,
+							"parameters": {
+								"effect": "\"Contrast\"",
+								"parameter-index": "0",
+								"value": "contrast_slider.Value"
+							}
+						}
+					],
+					"sid": 406594476455466
+				}
+			],
+			"sid": 342722758458470
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "drawing",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "variable",
+					"name": "startX",
+					"type": "number",
+					"initialValue": "0",
+					"comment": "",
+					"isStatic": true,
+					"isConstant": false,
+					"sid": 467431778646006
+				},
+				{
+					"eventType": "variable",
+					"name": "startY",
+					"type": "number",
+					"initialValue": "0",
+					"comment": "",
+					"isStatic": true,
+					"isConstant": false,
+					"sid": 129144494880999
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-fullscreen",
+							"objectClass": "Browser",
+							"sid": 650995184475067
+						},
+						{
+							"id": "is-visible",
+							"objectClass": "DrawingCanvas",
+							"sid": 481678923688726
+						}
+					],
+					"actions": [],
+					"sid": 147266216685703,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "mouse-button-is-down",
+									"objectClass": "Mouse",
+									"sid": 892690630678334,
+									"parameters": {
+										"mouse-button": "left"
+									}
+								},
+								{
+									"id": "trigger-once-while-true",
+									"objectClass": "System",
+									"sid": 721012569163302
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 621903249434720,
+									"parameters": {
+										"variable": "startX",
+										"value": "Mouse.X"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 916872129571175,
+									"parameters": {
+										"variable": "startY",
+										"value": "Mouse.Y"
+									}
+								}
+							],
+							"sid": 464983733998319
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "mouse-button-is-down",
+									"objectClass": "Mouse",
+									"sid": 879498436338033,
+									"parameters": {
+										"mouse-button": "left"
+									}
+								},
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 724025921376758,
+									"disabled": true,
+									"parameters": {
+										"variable": "startX",
+										"comparison": 1,
+										"value": "0"
+									}
+								},
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 536655659406827,
+									"disabled": true,
+									"parameters": {
+										"variable": "startY",
+										"comparison": 1,
+										"value": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "line",
+									"objectClass": "DrawingCanvas",
+									"sid": 727317098235101,
+									"disabled": true,
+									"parameters": {
+										"x1": "startX",
+										"y1": "startY",
+										"x2": "Mouse.X",
+										"y2": "Mouse.Y",
+										"color": "rgba(255, 255, 255, 100)",
+										"line-thickness": "9",
+										"line-cap": "square"
+									}
+								},
+								{
+									"id": "line",
+									"objectClass": "DrawingCanvas",
+									"sid": 478687024063936,
+									"parameters": {
+										"x1": "startX",
+										"y1": "startY",
+										"x2": "Mouse.X",
+										"y2": "Mouse.Y",
+										"color": "rgba(255, 0, 0, 100)",
+										"line-thickness": "7",
+										"line-cap": "square"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 979950257284066,
+									"parameters": {
+										"variable": "startX",
+										"value": "Mouse.X"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 973073551336582,
+									"parameters": {
+										"variable": "startY",
+										"value": "Mouse.Y"
+									}
+								}
+							],
+							"sid": 913845256543300
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-click",
+							"objectClass": "Mouse",
+							"sid": 381881476871528,
+							"parameters": {
+								"mouse-button": "right",
+								"click-type": "clicked"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "clear-canvas",
+							"objectClass": "DrawingCanvas",
+							"sid": 932212777711589,
+							"parameters": {
+								"color": "rgba(0, 0, 0, 0)"
+							}
+						}
+					],
+					"sid": 356626855768435
+				}
+			],
+			"sid": 161472546724799
+		}
+	],
+	"sid": 101761771032735
+}

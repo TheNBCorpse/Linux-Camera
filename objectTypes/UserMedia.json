@@ -1,0 +1,14 @@
+{
+	"name": "UserMedia",
+	"plugin-id": "UserMedia",
+	"sid": 363424572356881,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [
+		{
+			"effectId": "contrast",
+			"name": "Contrast"
+		}
+	]
+}
